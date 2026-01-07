@@ -11,15 +11,16 @@
     <h1>Halaman Profil</h1>
 
     <?php
-        // PHP berada di dalam elemen HTML
         $nama = "Budi Santoso";
         $status = "Aktif";
+        $nama2 = "cintah";
+        $status2 = "Aktif";
         
-        echo "<p>Selamat datang, <b>$nama</b>!</p>";
+        echo "<p>Selamat datang, <b>$nama, $nama2</b>!</p>";
     ?>
 
-    <div style="color: <?php echo ($status == 'Aktif') ? 'green' : 'red'; ?>">
-        Status akun Anda: <?php echo $status; ?>
+    <div style="color: <?php echo ($status == 'Aktif'),($status2 == 'Aktif') ? 'green' : 'red'; ?>">
+        Status akun Anda: <?php echo $status; ?> <?php echo $status2; ?>
     </div>
 
 </body>
