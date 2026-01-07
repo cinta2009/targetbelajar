@@ -33,7 +33,7 @@
     }
 
     button {
-        background-color: #007bff;
+        background-color: #ff00408a;
         color: white;
         border: none;
         cursor: pointer;
@@ -41,7 +41,7 @@
     }
 
     button:hover {
-        background-color: #0056b3;
+        background-color: #0057b35e;
     }
 
     .hasil {
