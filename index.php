@@ -13,8 +13,8 @@
     <?php
         $nama = "Budi Santoso";
         $status = "Aktif";
-        $nama2 = "cintah";
-        $status2 = "Aktif";
+        $nama2 = "cin";
+        $status2 = "tidak";
         
         echo "<p>Selamat datang, <b>$nama, $nama2</b>!</p>";
     ?>
