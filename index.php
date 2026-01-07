@@ -10,7 +10,7 @@
         display: flex;
         justify-content: center;
         padding-top: 50px;
-        background: #f0f2f5;
+        background: #165ac0ff;
     }
 
     .kalkulator {
