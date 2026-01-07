@@ -59,7 +59,7 @@
 <body>
 
     <div class="kalkulator">
-        <h2 style="text-align: center;">Kalkulator</h2>
+        <h2 style="text-align: center;">Kalkulator CINTAHHHHHHHHHHHH</h2>
 
         <form method="POST">
             <input type="number" name="angka1" placeholder="Masukkan angka pertama" required
