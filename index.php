@@ -129,7 +129,7 @@ if(isset($_GET['reset'])) {
         <h2 style="text-align: center; margin: 0 0 10px 0;">💖 RUMUS CINTAHHHHHH 💖</h2>
 
         <form method="POST">
-            <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdirmu broo</button>
+            <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdirmu Broo</button>
 
             <?php 
                 $nums_val = [];
