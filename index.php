@@ -1,5 +1,13 @@
 <?php 
 session_start(); 
+// Gunakan PHP_SELF agar otomatis mendeteksi nama file ini sendiri
+$nama_file = basename($_SERVER['PHP_SELF']);
+
+if(isset($_GET['reset'])) { 
+    session_destroy(); 
+    header("Location: " . $nama_file); 
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -14,74 +22,84 @@ session_start();
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        /* Wallpaper Estetik Love */
         background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1470&auto=format&fit=crop');
         background-size: cover;
         background-attachment: fixed;
     }
 
     .kalkulator {
-        background: rgba(223, 121, 121, 0.9);
-        backdrop-filter: blur(5px);
+        background: rgba(223, 121, 121, 0.95);
+        backdrop-filter: blur(8px);
         padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        width: 350px;
+        border-radius: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        width: 380px;
         color: white;
         border: 4px solid #fff;
     }
 
-    .riwayat-box {
-        background: rgba(255, 255, 255, 0.9);
-        padding: 15px;
-        border-radius: 15px;
-        width: 350px;
-        margin-top: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    .baris-hitung {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
     }
 
-    input,
-    select,
+    input {
+        flex: 2;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+    }
+
+    select {
+        flex: 1;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        background: #ffecf0;
+        font-weight: bold;
+    }
+
     button {
         width: 100%;
-        padding: 10px;
-        margin: 5px 0;
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 15px;
         border: none;
-        border-radius: 10px;
-        box-sizing: border-box;
-        font-size: 14px;
-    }
-
-    button[name="hitung"] {
-        background-color: #ff4d6d;
-        color: white;
         cursor: pointer;
         font-weight: bold;
-        font-size: 18px;
-        margin-top: 15px;
+        font-size: 16px;
+    }
+
+    .btn-hitung {
+        background: #ff4d6d;
+        color: white;
         border-bottom: 4px solid #c9184a;
     }
 
-    button[name="random"] {
-        background-color: #ffb703;
+    .btn-random {
+        background: #ffb703;
         color: #333;
-        cursor: pointer;
-        font-weight: bold;
+        margin-bottom: 15px;
     }
 
     .hasil-container {
         background: white;
         color: #df7979;
         padding: 15px;
-        border-radius: 10px;
-        margin-top: 15px;
+        border-radius: 15px;
+        margin-top: 20px;
         text-align: center;
     }
 
-    .label-input {
-        font-size: 12px;
-        font-weight: bold;
-        margin-left: 5px;
+    .riwayat {
+        background: rgba(255, 255, 255, 0.9);
+        width: 380px;
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 15px;
     }
     </style>
 </head>
@@ -89,89 +107,96 @@ session_start();
 <body>
 
     <div class="kalkulator">
-        <h2 style="text-align: center; margin-bottom: 5px;">💖 CINTAH PRO MAX 💖</h2>
+        <h2 style="text-align: center; margin-top: 0;">💖 RUMUS CINTAH 💖</h2>
 
         <form method="POST">
-            <button type="submit" name="random">🎲 Acak Semua Angka</button>
+            <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdir</button>
 
             <?php 
-                $a1 = $_POST['a1'] ?? '';
-                $a2 = $_POST['a2'] ?? '';
-                $a3 = $_POST['a3'] ?? '';
-                $a4 = $_POST['a4'] ?? '';
-
+                $a1 = $_POST['a1'] ?? 0; $a2 = $_POST['a2'] ?? 0; $a3 = $_POST['a3'] ?? 0; 
+                $a4 = $_POST['a4'] ?? 0; $a5 = $_POST['a5'] ?? 0;
+                
                 if(isset($_POST['random'])){
-                    $a1 = rand(1, 100); $a2 = rand(1, 100);
-                    $a3 = rand(1, 100); $a4 = rand(1, 100);
+                    $a1 = rand(1, 50); $a2 = rand(1, 50); $a3 = rand(1, 50); $a4 = rand(1, 50); $a5 = rand(1, 50);
                 }
             ?>
 
-            <span class="label-input">Angka 1</span>
-            <input type="number" name="a1" required value="<?= $a1 ?>">
+            <div class="baris-hitung">
+                <input type="number" name="a1" value="<?= $a1 ?>" required>
+                <select name="op1">
+                    <option value="+" <?= (isset($_POST['op1']) && $_POST['op1'] == '+') ? 'selected' : '' ?>>+</option>
+                    <option value="-" <?= (isset($_POST['op1']) && $_POST['op1'] == '-') ? 'selected' : '' ?>>-</option>
+                    <option value="x" <?= (isset($_POST['op1']) && $_POST['op1'] == 'x') ? 'selected' : '' ?>>x</option>
+                </select>
+            </div>
 
-            <select name="op">
-                <option value="tambah" <?= (isset($_POST['op']) && $_POST['op'] == 'tambah') ? 'selected' : '' ?>>Tambah
-                    (+)</option>
-                <option value="kurang" <?= (isset($_POST['op']) && $_POST['op'] == 'kurang') ? 'selected' : '' ?>>Kurang
-                    (-)</option>
-                <option value="kali" <?= (isset($_POST['op']) && $_POST['op'] == 'kali') ? 'selected' : '' ?>>Kali (x)
-                </option>
-            </select>
+            <div class="baris-hitung">
+                <input type="number" name="a2" value="<?= $a2 ?>" required>
+                <select name="op2">
+                    <option value="+" <?= (isset($_POST['op2']) && $_POST['op2'] == '+') ? 'selected' : '' ?>>+</option>
+                    <option value="-" <?= (isset($_POST['op2']) && $_POST['op2'] == '-') ? 'selected' : '' ?>>-</option>
+                    <option value="x" <?= (isset($_POST['op2']) && $_POST['op2'] == 'x') ? 'selected' : '' ?>>x</option>
+                </select>
+            </div>
 
-            <span class="label-input">Angka 2</span>
-            <input type="number" name="a2" required value="<?= $a2 ?>">
+            <div class="baris-hitung">
+                <input type="number" name="a3" value="<?= $a3 ?>" required>
+                <select name="op3">
+                    <option value="+" <?= (isset($_POST['op3']) && $_POST['op3'] == '+') ? 'selected' : '' ?>>+</option>
+                    <option value="-" <?= (isset($_POST['op3']) && $_POST['op3'] == '-') ? 'selected' : '' ?>>-</option>
+                    <option value="x" <?= (isset($_POST['op3']) && $_POST['op3'] == 'x') ? 'selected' : '' ?>>x</option>
+                </select>
+            </div>
 
-            <span class="label-input">Angka 3</span>
-            <input type="number" name="a3" required value="<?= $a3 ?>">
+            <div class="baris-hitung">
+                <input type="number" name="a4" value="<?= $a4 ?>" required>
+                <select name="op4">
+                    <option value="+" <?= (isset($_POST['op4']) && $_POST['op4'] == '+') ? 'selected' : '' ?>>+</option>
+                    <option value="-" <?= (isset($_POST['op4']) && $_POST['op4'] == '-') ? 'selected' : '' ?>>-</option>
+                    <option value="x" <?= (isset($_POST['op4']) && $_POST['op4'] == 'x') ? 'selected' : '' ?>>x</option>
+                </select>
+            </div>
 
-            <span class="label-input">Angka 4</span>
-            <input type="number" name="a4" required value="<?= $a4 ?>">
+            <div class="baris-hitung">
+                <input type="number" name="a5" value="<?= $a5 ?>" required>
+                <span style="font-weight:bold; margin-left:10px;">= ?</span>
+            </div>
 
-            <button type="submit" name="hitung">HITUNG SEMUA! 🔥</button>
+            <button type="submit" name="hitung" class="btn-hitung">JALANKAN TAKDIR 🔥</button>
         </form>
 
         <?php
         if (isset($_POST['hitung'])) {
-            $op = $_POST['op'];
-            $res = 0;
-            $s = ($op == 'tambah') ? "+" : (($op == 'kali') ? "x" : "-");
+            $op1 = $_POST['op1']; $op2 = $_POST['op2']; $op3 = $_POST['op3']; $op4 = $_POST['op4'];
 
-            if ($op == 'tambah') {
-                $res = $a1 + $a2 + $a3 + $a4;
-            } elseif ($op == 'kurang') {
-                $res = $a1 - $a2 - $a3 - $a4;
-            } elseif ($op == 'kali') {
-                $res = $a1 * $a2 * $a3 * $a4;
-            }
+            if($op1 == '+') $step1 = $a1 + $a2; elseif($op1 == '-') $step1 = $a1 - $a2; else $step1 = $a1 * $a2;
+            if($op2 == '+') $step2 = $step1 + $a3; elseif($op2 == '-') $step2 = $step1 - $a3; else $step2 = $step1 * $a3;
+            if($op3 == '+') $step3 = $step2 + $a4; elseif($op3 == '-') $step3 = $step2 - $a4; else $step3 = $step2 * $a4;
+            if($op4 == '+') $final = $step3 + $a5; elseif($op4 == '-') $final = $step3 - $a5; else $final = $step3 * $a5;
 
             $persen = rand(1, 100);
-            
-            if(!isset($_SESSION['r'])) $_SESSION['r'] = [];
-            array_unshift($_SESSION['r'], "Hitung: $a1 $s $a2 $s $a3 $s $a4 = $res");
+            echo "<div class='hasil-container'>
+                    <b>Hasil: $final</b><br>
+                    <b>Kecocokan: $persen% ❤️</b>
+                  </div>";
 
-            echo "<div class='hasil-container'>";
-            echo "<b>Total Hitung:</b><br><span style='font-size: 24px;'>$res</span><br>";
-            echo "<b>Kecocokan: $persen% ❤️</b>";
-            echo "</div>";
+            if(!isset($_SESSION['r'])) $_SESSION['r'] = [];
+            array_unshift($_SESSION['r'], "$a1 $op1 $a2 $op2 $a3 $op3 $a4 $op4 $a5 = $final ($persen%)");
         }
         ?>
     </div>
 
-    <div class="riwayat-box">
-        <h3 style="margin:0; text-align:center;">📜 Memori Angka</h3>
-        <?php if (isset($_SESSION['r'])): ?>
-        <?php foreach (array_slice($_SESSION['r'], 0, 3) as $r): ?>
-        <div style="font-size: 12px; border-bottom: 1px solid #eee; padding: 5px;"><?= $r ?></div>
+    <?php if(!empty($_SESSION['r'])): ?>
+    <div class="riwayat">
+        <h4 style="margin: 0; text-align: center;">📜 Memori</h4>
+        <?php foreach(array_slice($_SESSION['r'], 0, 3) as $row): ?>
+        <div style="font-size: 12px; padding: 5px; border-bottom: 1px solid #eee;">✨ <?= $row ?></div>
         <?php endforeach; ?>
-        <p style="text-align:center;"><a href="?reset=1" style="color:red; text-decoration:none; font-size:10px;">Hapus
-                Kenangan</a></p>
-        <?php endif; ?>
+        <p style="text-align:center;"><a href="?reset=1"
+                style="color:red; font-size:11px; text-decoration:none;">Hapus</a></p>
     </div>
+    <?php endif; ?>
 
 </body>
 
 </html>
-
-<?php 
-if(isset($_GET['reset'])) { session_destroy(); header("Location: index.php"); }
-?>
