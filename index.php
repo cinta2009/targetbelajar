@@ -91,7 +91,7 @@ if(isset($_GET['reset'])) {
     }
 
     .btn-random {
-        background: #5a2e14ff;
+        background: #c9184a;
         color: #333;
         margin-bottom: 15px;
     }
