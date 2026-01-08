@@ -126,7 +126,7 @@ if(isset($_GET['reset'])) {
 
     <div class="kalkulator">
         <h2 style="text-align: center; margin: 0 0 10px 0;">💖 KALKULATOR CINTAHHHHHHHH 💖</h2>
-        <h2 style="text-align: center; margin: 0 0 10px 0;">💖 CINTAHHHHHHHH 💖</h2>
+        <h2 style="text-align: center; margin: 0 0 10px 0;">💖 RUMUS CINTAHHHHHHHH 💖</h2>
 
         <form method="POST">
             <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdir</button>
