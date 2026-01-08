@@ -1,10 +1,8 @@
 <?php 
 session_start(); 
 
-// Otomatis mendeteksi nama file agar fitur reset lancar
 $nama_file = basename($_SERVER['PHP_SELF']);
 
-// Fitur Lupakan Kenangan (Reset)
 if(isset($_GET['reset'])) { 
     session_destroy(); 
     header("Location: " . $nama_file); 
@@ -24,7 +22,6 @@ if(isset($_GET['reset'])) {
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        /* Wallpaper Estetik Love */
         background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1470&auto=format&fit=crop');
         background-size: cover;
         background-attachment: fixed;
@@ -136,54 +133,32 @@ if(isset($_GET['reset'])) {
             <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdir</button>
 
             <?php 
-                // Mengambil angka atau memberikan nilai default agar tidak error
                 $a1 = $_POST['a1'] ?? 0;
                 $a2 = $_POST['a2'] ?? 0;
                 $a3 = $_POST['a3'] ?? 0;
                 $a4 = $_POST['a4'] ?? 0;
                 $a5 = $_POST['a5'] ?? 0;
                 
-                // Jika tombol acak ditekan
                 if(isset($_POST['random'])){
                     $a1 = rand(1, 50); $a2 = rand(1, 50); $a3 = rand(1, 50); $a4 = rand(1, 50); $a5 = rand(1, 50);
                 }
             ?>
 
+            <?php for($i=1; $i<=4; $i++): ?>
             <div class="baris-hitung">
-                <input type="number" name="a1" value="<?= $a1 ?>" required>
-                <select name="op1">
-                    <option value="+" <?= (isset($_POST['op1']) && $_POST['op1'] == '+') ? 'selected' : '' ?>>+</option>
-                    <option value="-" <?= (isset($_POST['op1']) && $_POST['op1'] == '-') ? 'selected' : '' ?>>-</option>
-                    <option value="x" <?= (isset($_POST['op1']) && $_POST['op1'] == 'x') ? 'selected' : '' ?>>x</option>
+                <input type="number" name="a<?= $i ?>" value="<?= ${"a$i"} ?>" required>
+                <select name="op<?= $i ?>">
+                    <option value="+" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '+') ? 'selected' : '' ?>>+
+                    </option>
+                    <option value="-" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '-') ? 'selected' : '' ?>>-
+                    </option>
+                    <option value="x" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == 'x') ? 'selected' : '' ?>>x
+                    </option>
+                    <option value="/" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '/') ? 'selected' : '' ?>>/
+                    </option>
                 </select>
             </div>
-
-            <div class="baris-hitung">
-                <input type="number" name="a2" value="<?= $a2 ?>" required>
-                <select name="op2">
-                    <option value="+" <?= (isset($_POST['op2']) && $_POST['op2'] == '+') ? 'selected' : '' ?>>+</option>
-                    <option value="-" <?= (isset($_POST['op2']) && $_POST['op2'] == '-') ? 'selected' : '' ?>>-</option>
-                    <option value="x" <?= (isset($_POST['op2']) && $_POST['op2'] == 'x') ? 'selected' : '' ?>>x</option>
-                </select>
-            </div>
-
-            <div class="baris-hitung">
-                <input type="number" name="a3" value="<?= $a3 ?>" required>
-                <select name="op3">
-                    <option value="+" <?= (isset($_POST['op3']) && $_POST['op3'] == '+') ? 'selected' : '' ?>>+</option>
-                    <option value="-" <?= (isset($_POST['op3']) && $_POST['op3'] == '-') ? 'selected' : '' ?>>-</option>
-                    <option value="x" <?= (isset($_POST['op3']) && $_POST['op3'] == 'x') ? 'selected' : '' ?>>x</option>
-                </select>
-            </div>
-
-            <div class="baris-hitung">
-                <input type="number" name="a4" value="<?= $a4 ?>" required>
-                <select name="op4">
-                    <option value="+" <?= (isset($_POST['op4']) && $_POST['op4'] == '+') ? 'selected' : '' ?>>+</option>
-                    <option value="-" <?= (isset($_POST['op4']) && $_POST['op4'] == '-') ? 'selected' : '' ?>>-</option>
-                    <option value="x" <?= (isset($_POST['op4']) && $_POST['op4'] == 'x') ? 'selected' : '' ?>>x</option>
-                </select>
-            </div>
+            <?php endfor; ?>
 
             <div class="baris-hitung">
                 <input type="number" name="a5" value="<?= $a5 ?>" required>
@@ -195,43 +170,47 @@ if(isset($_GET['reset'])) {
 
         <?php
         if (isset($_POST['hitung'])) {
-            // Pengaman Undefined Key menggunakan ??
-            $op1 = $_POST['op1'] ?? '+';
-            $op2 = $_POST['op2'] ?? '+';
-            $op3 = $_POST['op3'] ?? '+';
-            $op4 = $_POST['op4'] ?? '+';
+            $ops = [$_POST['op1'] ?? '+', $_POST['op2'] ?? '+', $_POST['op3'] ?? '+', $_POST['op4'] ?? '+'];
+            $nums = [$a1, $a2, $a3, $a4, $a5];
+            $res = $nums[0];
+            $error = false;
 
-            // Proses Hitung Berantai
-            if($op1 == '+') $step1 = $a1 + $a2; elseif($op1 == '-') $step1 = $a1 - $a2; else $step1 = $a1 * $a2;
-            if($op2 == '+') $step2 = $step1 + $a3; elseif($op2 == '-') $step2 = $step1 - $a3; else $step2 = $step1 * $a3;
-            if($op3 == '+') $step3 = $step2 + $a4; elseif($op3 == '-') $step3 = $step2 - $a4; else $step3 = $step2 * $a4;
-            if($op4 == '+') $final = $step3 + $a5; elseif($op4 == '-') $final = $step3 - $a5; else $final = $step3 * $a5;
+            for ($i = 0; $i < 4; $i++) {
+                if ($ops[$i] == '+') $res += $nums[$i+1];
+                elseif ($ops[$i] == '-') $res -= $nums[$i+1];
+                elseif ($ops[$i] == 'x') $res *= $nums[$i+1];
+                elseif ($ops[$i] == '/') {
+                    if ($nums[$i+1] != 0) $res /= $nums[$i+1];
+                    else { $error = true; break; }
+                }
+            }
 
+            $final = $error ? "Eror (Pembagi 0)" : round($res, 2);
             $persen = rand(1, 100);
-            $kalimat = ($persen > 70) ? "Wah, Berjodoh!" : (($persen > 40) ? "Lumayan Lah.." : "Coba Hitung Lagi..");
 
             echo "<div class='hasil-container'>";
             echo "<b>Hasil Rumus: $final</b><br>";
-            echo "<hr style='border: 0.5px solid #eee'>";
-            echo "<b>Kecocokan: $persen% ❤️</b><br>";
-            echo "<i>\"$kalimat\"</i>";
+            if(!$error) {
+                echo "<hr style='border: 0.5px solid #eee'>";
+                echo "<b>Kecocokan: $persen% ❤️</b><br>";
+            }
             echo "</div>";
 
-            // Simpan Riwayat
             if(!isset($_SESSION['r'])) $_SESSION['r'] = [];
-            array_unshift($_SESSION['r'], "$a1 $op1 $a2 $op2 $a3 $op3 $a4 $op4 $a5 = $final ($persen%)");
+            $riwayat_teks = "$a1 {$ops[0]} $a2 {$ops[1]} $a3 {$ops[2]} $a4 {$ops[3]} $a5 = $final";
+            array_unshift($_SESSION['r'], $riwayat_teks);
         }
         ?>
     </div>
 
-    <?php if(isset($_SESSION['r']) && !empty($_SESSION['r'])): ?>
+    <?php if(!empty($_SESSION['r'])): ?>
     <div class="riwayat">
         <h4 style="margin: 0 0 10px 0; text-align: center;">📜 Memori Terakhir</h4>
         <?php foreach(array_slice($_SESSION['r'], 0, 3) as $row): ?>
         <div class="item-riwayat">✨ <?= $row ?></div>
         <?php endforeach; ?>
         <p style="text-align:center;"><a href="?reset=1"
-                style="color:red; font-size:11px; text-decoration:none;">Lupakan Semua Kenangan</a></p>
+                style="color:red; font-size:11px; text-decoration:none;">Lupakan Semua</a></p>
     </div>
     <?php endif; ?>
 
