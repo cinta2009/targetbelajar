@@ -14,7 +14,7 @@ if(isset($_GET['reset'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Kalkulator CINTAH Pro Max</title>
+    <title>Kalkulator CINTAH Super Pro</title>
     <style>
     body {
         font-family: 'Comic Sans MS', sans-serif;
@@ -34,17 +34,17 @@ if(isset($_GET['reset'])) {
         padding: 25px;
         border-radius: 25px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        width: 380px;
+        width: 400px;
         color: white;
         border: 4px solid #fff;
-        margin-top: 20px;
+        margin-top: 10px;
     }
 
     .baris-hitung {
         display: flex;
         align-items: center;
-        gap: 10px;
-        margin-bottom: 10px;
+        gap: 8px;
+        margin-bottom: 8px;
     }
 
     input {
@@ -57,14 +57,14 @@ if(isset($_GET['reset'])) {
     }
 
     select {
-        flex: 1;
+        flex: 1.2;
         padding: 10px;
         border-radius: 10px;
         border: none;
         background: #ffecf0;
         font-weight: bold;
         cursor: pointer;
-        outline: none;
+        font-size: 14px;
     }
 
     button {
@@ -101,23 +101,21 @@ if(isset($_GET['reset'])) {
         color: #df7979;
         padding: 15px;
         border-radius: 15px;
-        margin-top: 20px;
+        margin-top: 15px;
         text-align: center;
-        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .riwayat {
         background: rgba(255, 255, 255, 0.9);
-        width: 380px;
+        width: 400px;
         margin-top: 20px;
         padding: 15px;
         border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     }
 
     .item-riwayat {
-        font-size: 13px;
-        padding: 8px;
+        font-size: 12px;
+        padding: 6px;
         border-bottom: 1px solid #eee;
         color: #333;
     }
@@ -127,26 +125,25 @@ if(isset($_GET['reset'])) {
 <body>
 
     <div class="kalkulator">
-        <h2 style="text-align: center; margin-top: 0;">💖 RUMUS CINTAH 💖</h2>
+        <h2 style="text-align: center; margin: 0 0 10px 0;">💖 RUMUS CINTAH 💖</h2>
 
         <form method="POST">
             <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdir</button>
 
             <?php 
-                $a1 = $_POST['a1'] ?? 0;
-                $a2 = $_POST['a2'] ?? 0;
-                $a3 = $_POST['a3'] ?? 0;
-                $a4 = $_POST['a4'] ?? 0;
-                $a5 = $_POST['a5'] ?? 0;
-                
-                if(isset($_POST['random'])){
-                    $a1 = rand(1, 50); $a2 = rand(1, 50); $a3 = rand(1, 50); $a4 = rand(1, 50); $a5 = rand(1, 50);
+                $nums_val = [];
+                for($i=1; $i<=5; $i++) {
+                    if(isset($_POST['random'])) {
+                        $nums_val[$i] = rand(1, 10); // Angka lebih kecil agar pangkat tidak meledak
+                    } else {
+                        $nums_val[$i] = $_POST["a$i"] ?? 0;
+                    }
                 }
             ?>
 
             <?php for($i=1; $i<=4; $i++): ?>
             <div class="baris-hitung">
-                <input type="number" name="a<?= $i ?>" value="<?= ${"a$i"} ?>" required>
+                <input type="number" name="a<?= $i ?>" value="<?= $nums_val[$i] ?>" required>
                 <select name="op<?= $i ?>">
                     <option value="+" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '+') ? 'selected' : '' ?>>+
                     </option>
@@ -156,61 +153,70 @@ if(isset($_GET['reset'])) {
                     </option>
                     <option value="/" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '/') ? 'selected' : '' ?>>/
                     </option>
+                    <option value="%" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '%') ? 'selected' : '' ?>>Mod (%)
+                    </option>
+                    <option value="^" <?= (isset($_POST["op$i"]) && $_POST["op$i"] == '^') ? 'selected' : '' ?>>Pangkat
+                        (^)</option>
                 </select>
             </div>
             <?php endfor; ?>
 
             <div class="baris-hitung">
-                <input type="number" name="a5" value="<?= $a5 ?>" required>
+                <input type="number" name="a5" value="<?= $nums_val[5] ?>" required>
                 <span style="font-weight:bold; margin-left:10px;">= ?</span>
             </div>
 
-            <button type="submit" name="hitung" class="btn-hitung">JALANKAN TAKDIR 🔥</button>
+            <button type="submit" name="hitung" class="btn-hitung">HITUNG TAKDIR SUPER 🔥</button>
         </form>
 
         <?php
         if (isset($_POST['hitung'])) {
             $ops = [$_POST['op1'] ?? '+', $_POST['op2'] ?? '+', $_POST['op3'] ?? '+', $_POST['op4'] ?? '+'];
-            $nums = [$a1, $a2, $a3, $a4, $a5];
+            $nums = [$nums_val[1], $nums_val[2], $nums_val[3], $nums_val[4], $nums_val[5]];
             $res = $nums[0];
-            $error = false;
+            $msg = "";
 
             for ($i = 0; $i < 4; $i++) {
-                if ($ops[$i] == '+') $res += $nums[$i+1];
-                elseif ($ops[$i] == '-') $res -= $nums[$i+1];
-                elseif ($ops[$i] == 'x') $res *= $nums[$i+1];
-                elseif ($ops[$i] == '/') {
-                    if ($nums[$i+1] != 0) $res /= $nums[$i+1];
-                    else { $error = true; break; }
+                $next = $nums[$i+1];
+                switch($ops[$i]) {
+                    case '+': $res += $next; break;
+                    case '-': $res -= $next; break;
+                    case 'x': $res *= $next; break;
+                    case '/': 
+                        if($next != 0) $res /= $next; 
+                        else { $msg = "Cinta Tak Terbagi (Div 0)"; }
+                        break;
+                    case '%':
+                        if($next != 0) $res %= $next;
+                        else { $msg = "Sisa Cinta Kosong (Mod 0)"; }
+                        break;
+                    case '^': $res = pow($res, $next); break;
                 }
+                if($msg != "") break;
             }
 
-            $final = $error ? "Eror (Pembagi 0)" : round($res, 2);
+            $final = ($msg != "") ? $msg : round($res, 2);
             $persen = rand(1, 100);
 
             echo "<div class='hasil-container'>";
-            echo "<b>Hasil Rumus: $final</b><br>";
-            if(!$error) {
-                echo "<hr style='border: 0.5px solid #eee'>";
-                echo "<b>Kecocokan: $persen% ❤️</b><br>";
-            }
+            echo "<b>Hasil Akhir: $final</b><br>";
+            if($msg == "") echo "<b>Kecocokan Takdir: $persen% ❤️</b>";
             echo "</div>";
 
             if(!isset($_SESSION['r'])) $_SESSION['r'] = [];
-            $riwayat_teks = "$a1 {$ops[0]} $a2 {$ops[1]} $a3 {$ops[2]} $a4 {$ops[3]} $a5 = $final";
-            array_unshift($_SESSION['r'], $riwayat_teks);
+            array_unshift($_SESSION['r'], "Hitung: $final ($persen%)");
         }
         ?>
     </div>
 
     <?php if(!empty($_SESSION['r'])): ?>
     <div class="riwayat">
-        <h4 style="margin: 0 0 10px 0; text-align: center;">📜 Memori Terakhir</h4>
+        <h4 style="margin: 0; text-align: center;">📜 Memori Terakhir</h4>
         <?php foreach(array_slice($_SESSION['r'], 0, 3) as $row): ?>
         <div class="item-riwayat">✨ <?= $row ?></div>
         <?php endforeach; ?>
-        <p style="text-align:center;"><a href="?reset=1"
-                style="color:red; font-size:11px; text-decoration:none;">Lupakan Semua</a></p>
+        <p style="text-align:center;"><a href="?reset=1" style="color:red; font-size:11px; text-decoration:none;">Hapus
+                Memori</a></p>
     </div>
     <?php endif; ?>
 
