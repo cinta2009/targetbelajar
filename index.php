@@ -1,8 +1,10 @@
 <?php 
 session_start(); 
-// Gunakan PHP_SELF agar otomatis mendeteksi nama file ini sendiri
+
+// Otomatis mendeteksi nama file agar fitur reset lancar
 $nama_file = basename($_SERVER['PHP_SELF']);
 
+// Fitur Lupakan Kenangan (Reset)
 if(isset($_GET['reset'])) { 
     session_destroy(); 
     header("Location: " . $nama_file); 
@@ -22,9 +24,11 @@ if(isset($_GET['reset'])) {
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        /* Wallpaper Estetik Love */
         background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1470&auto=format&fit=crop');
         background-size: cover;
         background-attachment: fixed;
+        margin: 0;
     }
 
     .kalkulator {
@@ -36,6 +40,7 @@ if(isset($_GET['reset'])) {
         width: 380px;
         color: white;
         border: 4px solid #fff;
+        margin-top: 20px;
     }
 
     .baris-hitung {
@@ -51,6 +56,7 @@ if(isset($_GET['reset'])) {
         border-radius: 10px;
         border: none;
         font-size: 16px;
+        outline: none;
     }
 
     select {
@@ -60,6 +66,8 @@ if(isset($_GET['reset'])) {
         border: none;
         background: #ffecf0;
         font-weight: bold;
+        cursor: pointer;
+        outline: none;
     }
 
     button {
@@ -71,12 +79,18 @@ if(isset($_GET['reset'])) {
         cursor: pointer;
         font-weight: bold;
         font-size: 16px;
+        transition: 0.3s;
     }
 
     .btn-hitung {
         background: #ff4d6d;
         color: white;
         border-bottom: 4px solid #c9184a;
+    }
+
+    .btn-hitung:active {
+        transform: translateY(4px);
+        border-bottom: none;
     }
 
     .btn-random {
@@ -92,6 +106,7 @@ if(isset($_GET['reset'])) {
         border-radius: 15px;
         margin-top: 20px;
         text-align: center;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
     .riwayat {
@@ -100,6 +115,14 @@ if(isset($_GET['reset'])) {
         margin-top: 20px;
         padding: 15px;
         border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .item-riwayat {
+        font-size: 13px;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+        color: #333;
     }
     </style>
 </head>
@@ -113,9 +136,14 @@ if(isset($_GET['reset'])) {
             <button type="submit" name="random" class="btn-random">🎲 Acak Angka & Takdir</button>
 
             <?php 
-                $a1 = $_POST['a1'] ?? 0; $a2 = $_POST['a2'] ?? 0; $a3 = $_POST['a3'] ?? 0; 
-                $a4 = $_POST['a4'] ?? 0; $a5 = $_POST['a5'] ?? 0;
+                // Mengambil angka atau memberikan nilai default agar tidak error
+                $a1 = $_POST['a1'] ?? 0;
+                $a2 = $_POST['a2'] ?? 0;
+                $a3 = $_POST['a3'] ?? 0;
+                $a4 = $_POST['a4'] ?? 0;
+                $a5 = $_POST['a5'] ?? 0;
                 
+                // Jika tombol acak ditekan
                 if(isset($_POST['random'])){
                     $a1 = rand(1, 50); $a2 = rand(1, 50); $a3 = rand(1, 50); $a4 = rand(1, 50); $a5 = rand(1, 50);
                 }
@@ -167,33 +195,43 @@ if(isset($_GET['reset'])) {
 
         <?php
         if (isset($_POST['hitung'])) {
-            $op1 = $_POST['op1']; $op2 = $_POST['op2']; $op3 = $_POST['op3']; $op4 = $_POST['op4'];
+            // Pengaman Undefined Key menggunakan ??
+            $op1 = $_POST['op1'] ?? '+';
+            $op2 = $_POST['op2'] ?? '+';
+            $op3 = $_POST['op3'] ?? '+';
+            $op4 = $_POST['op4'] ?? '+';
 
+            // Proses Hitung Berantai
             if($op1 == '+') $step1 = $a1 + $a2; elseif($op1 == '-') $step1 = $a1 - $a2; else $step1 = $a1 * $a2;
             if($op2 == '+') $step2 = $step1 + $a3; elseif($op2 == '-') $step2 = $step1 - $a3; else $step2 = $step1 * $a3;
             if($op3 == '+') $step3 = $step2 + $a4; elseif($op3 == '-') $step3 = $step2 - $a4; else $step3 = $step2 * $a4;
             if($op4 == '+') $final = $step3 + $a5; elseif($op4 == '-') $final = $step3 - $a5; else $final = $step3 * $a5;
 
             $persen = rand(1, 100);
-            echo "<div class='hasil-container'>
-                    <b>Hasil: $final</b><br>
-                    <b>Kecocokan: $persen% ❤️</b>
-                  </div>";
+            $kalimat = ($persen > 70) ? "Wah, Berjodoh!" : (($persen > 40) ? "Lumayan Lah.." : "Coba Hitung Lagi..");
 
+            echo "<div class='hasil-container'>";
+            echo "<b>Hasil Rumus: $final</b><br>";
+            echo "<hr style='border: 0.5px solid #eee'>";
+            echo "<b>Kecocokan: $persen% ❤️</b><br>";
+            echo "<i>\"$kalimat\"</i>";
+            echo "</div>";
+
+            // Simpan Riwayat
             if(!isset($_SESSION['r'])) $_SESSION['r'] = [];
             array_unshift($_SESSION['r'], "$a1 $op1 $a2 $op2 $a3 $op3 $a4 $op4 $a5 = $final ($persen%)");
         }
         ?>
     </div>
 
-    <?php if(!empty($_SESSION['r'])): ?>
+    <?php if(isset($_SESSION['r']) && !empty($_SESSION['r'])): ?>
     <div class="riwayat">
-        <h4 style="margin: 0; text-align: center;">📜 Memori</h4>
+        <h4 style="margin: 0 0 10px 0; text-align: center;">📜 Memori Terakhir</h4>
         <?php foreach(array_slice($_SESSION['r'], 0, 3) as $row): ?>
-        <div style="font-size: 12px; padding: 5px; border-bottom: 1px solid #eee;">✨ <?= $row ?></div>
+        <div class="item-riwayat">✨ <?= $row ?></div>
         <?php endforeach; ?>
         <p style="text-align:center;"><a href="?reset=1"
-                style="color:red; font-size:11px; text-decoration:none;">Hapus</a></p>
+                style="color:red; font-size:11px; text-decoration:none;">Lupakan Semua Kenangan</a></p>
     </div>
     <?php endif; ?>
 
