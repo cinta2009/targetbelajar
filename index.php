@@ -135,7 +135,7 @@ if(isset($_GET['reset'])) {
                 $nums_val = [];
                 for($i=1; $i<=5; $i++) {
                     if(isset($_POST['random'])) {
-                        $nums_val[$i] = rand(1, 10); // Angka lebih kecil agar pangkat tidak meledak
+                        $nums_val[$i] = rand(1, 10); 
                     } else {
                         $nums_val[$i] = $_POST["a$i"] ?? 0;
                     }
