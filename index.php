@@ -167,7 +167,8 @@ if(isset($_GET['reset'])) {
                 <span style="font-weight:bold; margin-left:10px;">= ?</span>
             </div>
 
-            <button type="submit" name="hitung" class="btn-hitung">HITUNG TAKDIR SUPERMU BERAPA PERSEN🔥</button>
+            <button type="submit" name="hitung" class="btn-hitung">HITUNG TAKDIR SUPERMU BERAPA PERSEN
+                CINTAMUH🔥</button>
         </form>
 
         <?php
