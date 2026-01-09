@@ -213,7 +213,7 @@ if(isset($_GET['reset'])) {
 
     <?php if(!empty($_SESSION['r'])): ?>
     <div class="riwayat">
-        <h4 style="margin: 0; text-align: center;">📜 Memori Terakhir</h4>
+        <h4 style="margin: 0; text-align: center;">📜 Memori Terakhirmu</h4>
         <?php foreach(array_slice($_SESSION['r'], 0, 3) as $row): ?>
         <div class="item-riwayat">✨ <?= $row ?></div>
         <?php endforeach; ?>
