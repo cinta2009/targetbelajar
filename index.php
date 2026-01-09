@@ -190,7 +190,7 @@ if(isset($_GET['reset'])) {
                         break;
                     case '%':
                         if($next != 0) $res %= $next;
-                        else { $msg = "Sisa Cinta Kosong (Mod 0)"; }
+                        else { $msg = "Sisa Cinta Kosong kasian (Mod 0)"; }
                         break;
                     case '^': $res = pow($res, $next); break;
                 }
