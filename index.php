@@ -14,7 +14,7 @@ if(isset($_GET['reset'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Kalkulator CINTAH Super Pro</title>
+    <title>Kalkulator CINTAH Super Promax</title>
     <style>
     body {
         font-family: 'Comic Sans MS', sans-serif;
