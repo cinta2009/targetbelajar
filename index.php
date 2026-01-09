@@ -186,7 +186,7 @@ if(isset($_GET['reset'])) {
                     case 'x': $res *= $next; break;
                     case '/': 
                         if($next != 0) $res /= $next; 
-                        else { $msg = "Cinta Tak Terbagi (Div 0)"; }
+                        else { $msg = "Cinta Tak Terbagi siapapun(Div 0)"; }
                         break;
                     case '%':
                         if($next != 0) $res %= $next;
