@@ -218,7 +218,7 @@ if(isset($_GET['reset'])) {
         <div class="item-riwayat">✨ <?= $row ?></div>
         <?php endforeach; ?>
         <p style="text-align:center;"><a href="?reset=1" style="color:red; font-size:11px; text-decoration:none;">Hapus
-                Memori</a></p>
+                Memorimu</a></p>
     </div>
     <?php endif; ?>
 
