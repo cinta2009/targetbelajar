@@ -144,7 +144,7 @@ if (isset($_GET['hapus'])) {
 
         <form method="POST" action="">
             <input type="text" name="tugas" placeholder="Tambah tugas baru..." required>
-            <button type="submit" name="tambah">Tambah</button>
+            <button type="submit" name="tambah">Tambah yaaa</button>
         </form>
 
         <ul>
