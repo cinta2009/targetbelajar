@@ -17,7 +17,7 @@ if (isset($_GET['hapus'])) {
     unset($_SESSION['todos'][$id]);
     // Reset index array agar tetap rapi
     $_SESSION['todos'] = array_values($_SESSION['todos']);
-    header("Location: todo.php");
+    header("Location: index.php");
 }
 ?>
 
@@ -32,7 +32,7 @@ if (isset($_GET['hapus'])) {
     <h2>Daftar Tugas</h2>
 
     <form method="POST" action="">
-        <input type="text" name="tugas" placeholder="Ketik tugas baru..." required>
+        <input type="text" name="tugas" placeholder="Ketik tugas baru anda..." required>
         <button type="submit" name="tambah">Tambah</button>
     </form>
 
