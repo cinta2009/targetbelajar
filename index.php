@@ -46,7 +46,7 @@ if (isset($_GET['hapus'])) {
     </ul>
 
     <?php if (empty($_SESSION['todos'])): ?>
-    <p>Belum ada tugas. Semangat yaaaa !</p>
+    <p>Belum ada tugas. Semangat yaaaa guyss!</p>
     <?php endif; ?>
 </body>
 
