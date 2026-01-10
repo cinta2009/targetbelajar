@@ -29,7 +29,7 @@ if (isset($_GET['hapus'])) {
 </head>
 
 <body>
-    <h2>Daftar Tugas Saya</h2>
+    <h2>Daftar Tugas</h2>
 
     <form method="POST" action="">
         <input type="text" name="tugas" placeholder="Ketik tugas baru..." required>
