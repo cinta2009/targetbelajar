@@ -25,7 +25,7 @@ if (isset($_GET['hapus'])) {
 <html>
 
 <head>
-    <title>To-Do List PHP Sederhana</title>
+    <title>To-Do List</title>
 </head>
 
 <body>
