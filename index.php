@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Inisialisasi daftar tugas jika belum ada
 if (!isset($_SESSION['todos'])) {
     $_SESSION['todos'] = [];
 }
