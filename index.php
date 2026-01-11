@@ -35,7 +35,7 @@ if (isset($_GET['hapus'])) {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         height: 100 vh;
-        margin: 0;
+        margin: 5;
         display: flex;
         justify-content: center;
         align-items: center;
