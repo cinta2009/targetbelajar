@@ -120,7 +120,7 @@ if (isset($_GET['hapus'])) {
         font-weight: bold;
         font-size: 0.9rem;
         padding: 5px 8px;
-        border-radius: 5px;
+        border-radius: 10px;
     }
 
     .delete-btn:hover {
