@@ -156,7 +156,7 @@ if (isset($_GET['hapus'])) {
         </ul>
 
         <?php if (empty($_SESSION['todos'])): ?>
-        <p class="empty-msg">Belum ada tugas, Semangat yaaaaa guyssssss!</p>
+        <p class="empty-msg">Belum ada tugas yaaa, Semangat yaaaaa guyssssss!</p>
         <?php endif; ?>
     </div>
 
