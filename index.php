@@ -138,7 +138,7 @@ if (isset($_GET['hapus'])) {
 <body>
 
     <div class="container">
-        <h2>Daftar Tugas 📝</h2>
+        <h2>Daftar Tugasmu📝</h2>
 
         <form method="POST" action="">
             <input type="text" name="tugas" placeholder="Tambah tugas baru..." required>
