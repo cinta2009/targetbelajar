@@ -129,7 +129,7 @@ if (isset($_GET['hapus'])) {
 
     .empty-msg {
         text-align: center;
-        color: #888;
+        color: #d36969;
         font-style: italic;
     }
     </style>
