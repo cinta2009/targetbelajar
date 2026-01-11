@@ -93,7 +93,6 @@ if (isset($_GET['hapus'])) {
         background-color: #4a00e0;
     }
 
-    /* Daftar Tugas */
     ul {
         list-style: none;
         padding: 0;
