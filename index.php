@@ -118,7 +118,7 @@ if (isset($_GET['hapus'])) {
         border-radius: 15px;
         border-left: 8px solid #764ba2;
         /* Garis samping lebih tebal */
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 6px rgba(224, 132, 132, 0.05);
         transition: all 0.3s;
     }
 
