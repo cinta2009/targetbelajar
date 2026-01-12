@@ -166,7 +166,7 @@ if (isset($_GET['hapus'])) {
 
         <form method="POST" action="">
             <input type="text" name="tugas" placeholder="Apa yang ingin kamu kerjakan?" required>
-            <button type="submit" name="tambah">Tambah Tugas</button>
+            <button type="submit" name="tambah">Tambah Tugasmu sayanggg</button>
         </form>
 
         <ul>
