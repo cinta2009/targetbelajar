@@ -180,7 +180,7 @@ if (isset($_GET['hapus'])) {
         </ul>
 
         <?php if (empty($_SESSION['todos'])): ?>
-        <p class="empty-msg">Belum ada tugas. Semangat ya hari ini! ✨</p>
+        <p class="empty-msg">Belum ada tugas. Semangat ya hari ini guysss! ✨</p>
         <?php endif; ?>
     </div>
 
