@@ -130,7 +130,7 @@ if (isset($_GET['hapus'])) {
     li span {
         font-size: 1.1rem;
         font-weight: 500;
-        color: #444;
+        color: #524848;
     }
 
     .delete-btn {
