@@ -28,68 +28,78 @@ if (isset($_GET['hapus'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern To-Do List</title>
+    <title>Modern To-Do List XL</title>
     <style>
     /* Gaya Dasar & Background */
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        height: 100 vh;
-        margin: 5;
+        min-height: 100vh;
+        margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         color: #333;
     }
 
-    /* Container Utama */
+    /* Container Utama - Dibuat Lebih Besar */
     .container {
         background: #fff;
-        width: 90%;
-        max-width: 400px;
-        padding: 2rem;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 95%;
+        max-width: 600px;
+        /* Ukuran diperbesar dari 400px */
+        padding: 3rem;
+        /* Padding diperbesar */
+        border-radius: 24px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     }
 
     h2 {
         text-align: center;
         color: #4a00e0;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        /* Judul lebih besar */
     }
 
     form {
         display: flex;
-        gap: 10px;
-        margin-bottom: 1.5rem;
+        gap: 15px;
+        margin-bottom: 2.5rem;
     }
 
     input[type="text"] {
         flex: 1;
-        padding: 10px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
+        padding: 15px 20px;
+        /* Input lebih tinggi */
+        border: 2px solid #eee;
+        border-radius: 12px;
         outline: none;
-        transition: border-color 0.3s;
+        font-size: 1.1rem;
+        transition: all 0.3s;
     }
 
     input[type="text"]:focus {
         border-color: #764ba2;
+        box-shadow: 0 0 10px rgba(118, 75, 162, 0.2);
     }
 
     button {
-        padding: 10px 15px;
+        padding: 15px 25px;
         background-color: #764ba2;
         color: white;
         border: none;
-        border-radius: 8px;
+        border-radius: 12px;
         cursor: pointer;
         font-weight: bold;
-        transition: background 0.3s;
+        font-size: 1rem;
+        transition: all 0.3s;
+        white-space: nowrap;
     }
 
     button:hover {
         background-color: #4a00e0;
+        transform: translateY(-2px);
     }
 
     ul {
@@ -98,38 +108,53 @@ if (isset($_GET['hapus'])) {
     }
 
     li {
-        background: #f9f9f9;
-        margin-bottom: 10px;
-        padding: 12px;
+        background: #fdfdfd;
+        margin-bottom: 15px;
+        padding: 18px 25px;
+        /* List item lebih besar */
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 8px;
-        border-left: 5px solid #764ba2;
-        transition: transform 0.2s;
+        border-radius: 15px;
+        border-left: 8px solid #764ba2;
+        /* Garis samping lebih tebal */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s;
     }
 
     li:hover {
-        transform: scale(1.02);
+        transform: scale(1.03);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    li span {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #444;
     }
 
     .delete-btn {
-        color: #4d85ff;
+        color: #ff4d4d;
         text-decoration: none;
         font-weight: bold;
-        font-size: 0.9rem;
-        padding: 5px 8px;
-        border-radius: 10px;
+        font-size: 0.95rem;
+        padding: 8px 15px;
+        border-radius: 8px;
+        background: #fff0f0;
+        transition: all 0.2s;
     }
 
     .delete-btn:hover {
-        background: #fff0f0;
+        background: #ff4d4d;
+        color: white;
     }
 
     .empty-msg {
         text-align: center;
-        color: #d36969;
+        color: #888;
         font-style: italic;
+        margin-top: 2rem;
+        font-size: 1.1rem;
     }
     </style>
 </head>
@@ -137,11 +162,11 @@ if (isset($_GET['hapus'])) {
 <body>
 
     <div class="container">
-        <h2>Daftar Tugasmu📝</h2>
+        <h2>Daftar Tugasmu 📝</h2>
 
         <form method="POST" action="">
-            <input type="text" name="tugas" placeholder="Tambah tugas baru..." required>
-            <button type="submit" name="tambah">Tambah yaaa</button>
+            <input type="text" name="tugas" placeholder="Apa yang ingin kamu kerjakan?" required>
+            <button type="submit" name="tambah">Tambah Tugas</button>
         </form>
 
         <ul>
@@ -149,13 +174,13 @@ if (isset($_GET['hapus'])) {
             <li>
                 <span><?php echo $item; ?></span>
                 <a href="?hapus=<?php echo $index; ?>" class="delete-btn"
-                    onclick="return confirm('Hapus tugas ini mau?')">Hapus tentangnya</a>
+                    onclick="return confirm('Hapus tugas ini?')">Hapus</a>
             </li>
             <?php endforeach; ?>
         </ul>
 
         <?php if (empty($_SESSION['todos'])): ?>
-        <p class="empty-msg">Belum ada tugas yaaa, Semangat yaaaaa guyssssss!</p>
+        <p class="empty-msg">Belum ada tugas. Semangat ya hari ini! ✨</p>
         <?php endif; ?>
     </div>
 
