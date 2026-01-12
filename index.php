@@ -174,7 +174,7 @@ if (isset($_GET['hapus'])) {
             <li>
                 <span><?php echo $item; ?></span>
                 <a href="?hapus=<?php echo $index; ?>" class="delete-btn"
-                    onclick="return confirm('Hapus tugas ini mauu?')">Hapus</a>
+                    onclick="return confirm('Hapus tugas ini mauu?')">Hapus ga</a>
             </li>
             <?php endforeach; ?>
         </ul>
