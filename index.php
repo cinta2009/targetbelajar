@@ -106,13 +106,11 @@ if (isset($_GET['hapus'])) {
         background: #fdfdfd;
         margin-bottom: 15px;
         padding: 18px 25px;
-        /* List item lebih besar */
         display: flex;
         justify-content: space-between;
         align-items: center;
         border-radius: 15px;
         border-left: 8px solid #764ba2;
-        /* Garis samping lebih tebal */
         box-shadow: 0 4px 6px rgba(224, 132, 132, 0.05);
         transition: all 0.3s;
     }
