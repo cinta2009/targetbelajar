@@ -71,7 +71,6 @@ if (isset($_GET['hapus'])) {
     input[type="text"] {
         flex: 1;
         padding: 15px 20px;
-        /* Input lebih tinggi */
         border: 2px solid #eee;
         border-radius: 12px;
         outline: none;
