@@ -60,7 +60,7 @@ if (isset($_GET['hapus'])) {
 
     form {
         display: flex;
-        gap: 15px;
+        gap: 20px;
         margin-bottom: 2.5rem;
     }
 
