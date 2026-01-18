@@ -30,7 +30,6 @@ if (isset($_GET['hapus'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern To-Do List XL</title>
     <style>
-    /* Gaya Dasar & Background */
     body {
         font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -42,14 +41,11 @@ if (isset($_GET['hapus'])) {
         color: #333;
     }
 
-    /* Container Utama - Dibuat Lebih Besar */
     .container {
         background: #fff;
         width: 95%;
         max-width: 600px;
-        /* Ukuran diperbesar dari 400px */
         padding: 3rem;
-        /* Padding diperbesar */
         border-radius: 24px;
         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
     }
