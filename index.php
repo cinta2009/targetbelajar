@@ -54,7 +54,7 @@ if (isset($_GET['hapus'])) {
         text-align: center;
         color: #4a00e0;
         margin-bottom: 2rem;
-        font-size: 2rem;
+        font-size: 3rem;
         /* Judul lebih besar */
     }
 
