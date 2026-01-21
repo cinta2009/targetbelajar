@@ -122,7 +122,7 @@ if (isset($_GET['hapus'])) {
 
     li span {
         font-size: 1.1rem;
-        font-weight: 500;
+        font-weight: 510;
         color: #524848;
     }
 
