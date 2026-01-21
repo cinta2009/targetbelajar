@@ -105,7 +105,7 @@ if (isset($_GET['hapus'])) {
     li {
         background: #fdfdfd;
         margin-bottom: 15px;
-        padding: 18px 25px;
+        padding: 20px 25px;
         display: flex;
         justify-content: space-between;
         align-items: center;
