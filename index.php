@@ -109,7 +109,7 @@ if (isset($_GET['hapus'])) {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border-radius: 15px;
+        border-radius: 10px;
         border-left: 8px solid #764ba2;
         box-shadow: 0 4px 6px rgba(224, 132, 132, 0.05);
         transition: all 0.3s;
