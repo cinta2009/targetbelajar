@@ -21,7 +21,7 @@ if(isset($_GET['reset'])) {
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 20px;
+        padding: 25px;
         background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?q=80&w=1470&auto=format&fit=crop');
         background-size: cover;
         background-attachment: fixed;
