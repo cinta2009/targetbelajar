@@ -36,7 +36,7 @@ if(isset($_GET['reset'])) {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         width: 400px;
         color: white;
-        border: 4px solid #fff;
+        border: 5px solid #fff;
         margin-top: 10px;
     }
 
