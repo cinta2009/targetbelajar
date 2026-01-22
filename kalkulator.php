@@ -30,7 +30,7 @@ if(isset($_GET['reset'])) {
 
     .kalkulator {
         background: rgba(223, 121, 121, 0.95);
-        backdrop-filter: blur(8px);
+        backdrop-filter: blur(10px);
         padding: 25px;
         border-radius: 25px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
