@@ -127,7 +127,7 @@ if (isset($_GET['hapus'])) {
     }
 
     .delete-btn {
-        color: #ff4d4d;
+        color: #fc4747;
         text-decoration: none;
         font-weight: bold;
         font-size: 0.95rem;
