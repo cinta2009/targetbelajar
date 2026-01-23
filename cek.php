@@ -40,7 +40,7 @@ if ($response) {
 
     input {
         padding: 10px;
-        border: 1px solid #ddd;
+        border: 1px solid #f89696;
         border-radius: 5px;
     }
 
