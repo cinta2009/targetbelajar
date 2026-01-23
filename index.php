@@ -81,7 +81,6 @@ if ($response) {
             <p>Kondisi: <?php echo ucfirst($data['weather'][0]['description']); ?></p>
             <p>Kelembapan: <?php echo $data['main']['humidity']; ?>%</p>
             <?php else: ?>
-            <p style="color: red;">Kota tidak ditemukan atau API Key belum diisi.</p>
             <?php endif; ?>
         </div>
     </div>
