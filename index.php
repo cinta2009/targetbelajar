@@ -1,180 +1,89 @@
 <?php
-session_start();
+// Ganti dengan API Key milikmu sendiri dari openweathermap.org jika ingin mencoba langsung
+$apiKey = "YOUR_API_KEY_HERE";
+$kota = isset($_POST['kota']) ? $_POST['kota'] : 'Jakarta';
+$units = "metric"; // Agar suhu dalam Celcius
 
-if (!isset($_SESSION['todos'])) {
-    $_SESSION['todos'] = [];
-}
+// URL API
+$url = "https://api.openweathermap.org/data/2.5/weather?q={$kota}&units={$units}&appid={$apiKey}";
 
-// Logika Menambah Tugas
-if (isset($_POST['tambah']) && !empty(trim($_POST['tugas']))) {
-    $_SESSION['todos'][] = htmlspecialchars($_POST['tugas']);
-}
+// Mengambil data dari API menggunakan file_get_contents
+// Catatan: Pastikan 'allow_url_fopen' aktif di php.ini
+$response = @file_get_contents($url);
 
-// Logika Menghapus Tugas
-if (isset($_GET['hapus'])) {
-    $id = $_GET['hapus'];
-    if (isset($_SESSION['todos'][$id])) {
-        unset($_SESSION['todos'][$id]);
-        $_SESSION['todos'] = array_values($_SESSION['todos']);
-    }
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit;
+$data = null;
+if ($response) {
+    $data = json_decode($response, true);
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern To-Do List XL</title>
+    <title>Cek Cuaca PHP</title>
     <style>
     body {
-        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #333;
-    }
-
-    .container {
-        background: #fff;
-        width: 95%;
-        max-width: 600px;
-        padding: 3rem;
-        border-radius: 24px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-    }
-
-    h2 {
+        font-family: 'Segoe UI', sans-serif;
+        background: #e0f2f1;
         text-align: center;
-        color: #4a00e0;
-        margin-bottom: 2rem;
-        font-size: 3rem;
-        /* Judul lebih besar */
+        padding-top: 50px;
     }
 
-    form {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 2.5rem;
+    .card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        display: inline-block;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
 
-    input[type="text"] {
-        flex: 2;
-        padding: 15px 20px;
-        border: 2px solid #eee;
-        border-radius: 12px;
-        outline: none;
-        font-size: 1.1rem;
-        transition: all 0.3s;
-    }
-
-    input[type="text"]:focus {
-        border-color: #764ba2;
-        box-shadow: 0 0 10px rgba(118, 75, 162, 0.2);
+    input {
+        padding: 10px;
+        border: 1px solid #f89696;
+        border-radius: 5px;
     }
 
     button {
-        padding: 15px 25px;
-        background-color: #764ba2;
+        padding: 10px 20px;
+        background: #63d1c4;
         color: white;
         border: none;
-        border-radius: 12px;
+        border-radius: 5px;
         cursor: pointer;
+    }
+
+    .info {
+        margin-top: 20px;
+    }
+
+    .temp {
+        font-size: 40px;
         font-weight: bold;
-        font-size: 1rem;
-        transition: all 0.3s;
-        white-space: nowrap;
-    }
-
-    button:hover {
-        background-color: #4a00e0;
-        transform: translateY(-2px);
-    }
-
-    ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    li {
-        background: #fdfdfd;
-        margin-bottom: 15px;
-        padding: 20px 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-radius: 10px;
-        border-left: 10px solid #764ba2;
-        box-shadow: 0 4px 6px rgba(224, 132, 132, 0.05);
-        transition: all 0.3s;
-    }
-
-    li:hover {
-        transform: scale(1.03);
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    li span {
-        font-size: 1.1rem;
-        font-weight: 510;
-        color: #524848;
-    }
-
-    .delete-btn {
-        color: #fc4747;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 0.95rem;
-        padding: 8px 15px;
-        border-radius: 8px;
-        background: #fff0f0;
-        transition: all 0.2s;
-    }
-
-    .delete-btn:hover {
-        background: #ff4d4d;
-        color: white;
-    }
-
-    .empty-msg {
-        text-align: center;
-        color: #888;
-        font-style: italic;
-        margin-top: 2rem;
-        font-size: 1.1rem;
+        color: #333;
     }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <h2>Daftar Tugasmu ini lohh📝</h2>
-
-        <form method="POST" action="">
-            <input type="text" name="tugas" placeholder="Apa yang ingin kamu kerjakan sekarang?" required>
-            <button type="submit" name="tambah">Tambah Tugasmu sayanggg</button>
+    <div class="card">
+        <h2>Cek Cuaca Real-Time</h2>
+        <form method="POST">
+            <input type="text" name="kota" placeholder="Masukkan nama kota..." required>
+            <button type="submit">Cari</button>
         </form>
 
-        <ul>
-            <?php foreach ($_SESSION['todos'] as $index => $item): ?>
-            <li>
-                <span><?php echo $item; ?></span>
-                <a href="?hapus=<?php echo $index; ?>" class="delete-btn"
-                    onclick="return confirm('Hapus tugas ini ya?')">Hapus ga?</a>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-
-        <?php if (empty($_SESSION['todos'])): ?>
-        <p class="empty-msg">Belum ada tugas saat ini. Semangat yaaa guysss! ✨</p>
-        <?php endif; ?>
+        <div class="info">
+            <?php if ($data && $data['cod'] == 200): ?>
+            <h3><?php echo $data['name']; ?>, <?php echo $data['sys']['country']; ?></h3>
+            <div class="temp"><?php echo round($data['main']['temp']); ?>°C</div>
+            <p>Kondisi: <?php echo ucfirst($data['weather'][0]['description']); ?></p>
+            <p>Kelembapan: <?php echo $data['main']['humidity']; ?>%</p>
+            <?php else: ?>
+            <p style="color: red;">Kota tidak ditemukan atau API Key belum diisi.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
 </body>
