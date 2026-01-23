@@ -46,7 +46,7 @@ if ($response) {
 
     button {
         padding: 10px 20px;
-        background: #00796b;
+        background: #63d1c4;
         color: white;
         border: none;
         border-radius: 5px;
