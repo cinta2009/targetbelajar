@@ -6,9 +6,6 @@ $units = "metric"; // Agar suhu dalam Celcius
 
 // URL API
 $url = "https://api.openweathermap.org/data/2.5/weather?q={$kota}&units={$units}&appid={$apiKey}";
-
-// Mengambil data dari API menggunakan file_get_contents
-// Catatan: Pastikan 'allow_url_fopen' aktif di php.ini
 $response = @file_get_contents($url);
 
 $data = null;
