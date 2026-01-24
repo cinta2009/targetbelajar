@@ -30,7 +30,7 @@ if ($response) {
     .card {
         background: white;
         padding: 30px;
-        border-radius: 15px;
+        border-radius: 20px;
         display: inline-block;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
