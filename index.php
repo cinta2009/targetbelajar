@@ -67,7 +67,7 @@ if ($response) {
     <div class="card">
         <h2>Cek Cuaca Real-Time</h2>
         <form method="POST">
-            <input type="text" name="kota" placeholder="Masukkan nama kota..." required>
+            <input type="text" name="kota" placeholder="Masukkan nama kotamu..." required>
             <button type="submit">Cari</button>
         </form>
 
