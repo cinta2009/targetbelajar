@@ -18,7 +18,7 @@ if ($response) {
 <html>
 
 <head>
-    <title>Cek Cuaca PHP</title>
+    <title>Cek Cuaca</title>
     <style>
     body {
         font-family: 'Segoe UI', sans-serif;
