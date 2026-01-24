@@ -22,7 +22,7 @@ if ($response) {
     <style>
     body {
         font-family: 'Segoe UI', sans-serif;
-        background: #e0f2f1;
+        background: #5ac9c3;
         text-align: center;
         padding-top: 50px;
     }
